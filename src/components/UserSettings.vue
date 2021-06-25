@@ -2,7 +2,7 @@
   <div>
     <br>
     <h2>Shipping data:</h2>
-    <form @submit="postData" method="post">
+
       <br>
       <label for="firstname"><h5>First name:</h5></label>
       <input type="text" id="firstname" v-model="user.firstName">
@@ -16,40 +16,36 @@
       <label for="zip"><h5>ZIP code:</h5></label>
       <input type="text" id="zip" v-model="user.zip">
       <br>
-      <label for="album"><h5>Choose style of your album:</h5></label>
-      <select id="album" name="album" v-model="user.albumStyle">
-        <option value="classic">Classic</option>
-        <option value="romantic">Romantic</option>
-        <option value="children">Children</option>
-        <option value="modern">Modern</option>
-      </select>
-      <br>
-      <input type="submit" value="Submit">
-    </form>
+      <button @click="postData">Submit</button>
+
   </div>
 </template>
 
 <script>
 
 
+  //asdasd
+  //import {keycloak} from "@/keycloak";
+
   export default {
     name: "Album",
     data(){
       return {
         user:{
+          id_keycloak: null,
           firstName: null,
           surname: null,
           address: null,
           zip: null,
-          albumStyle: null
         }
     }
 
     },
     methods: {
       postData(e){
-
-
+        let token = localStorage.getItem("vue-token");
+        console.log(token);
+        //this.user.zip.replace(' ', '');
         this.$axios.post('http://localhost:3001/users', this.user)
             .then((r) => {
               console.warn(r);
@@ -60,7 +56,8 @@
 
         e.preventDefault();
       }
-    }
+    },
+
   }
 </script>
 
